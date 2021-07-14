@@ -16,7 +16,7 @@ class App extends React.Component {
   unsubcribeFromAuth = null;
 
   componentDidMount() {
-   
+   console.log( this.props.currentUser);
   }
 
   componentWillUnmount() {
