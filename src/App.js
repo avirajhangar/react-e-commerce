@@ -1,5 +1,5 @@
 import './App.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -15,39 +15,30 @@ import { checkUserSession } from './redux/user/user.actions';
 
 import './pages/homepage/homepage.styles.scss';
 
-class App extends React.Component {
-  unsubcribeFromAuth = null;
-
-  componentDidMount() {
-    const { checkUserSession } = this.props;
+const App = ({ checkUserSession, currentUser }) => {
+  useEffect(() =>{
     checkUserSession();
-  }
+  }, [checkUserSession])
 
-  componentWillUnmount() {
-    this.unsubcribeFromAuth();
-  }
-
-  render() {
-    return (
-      <div>
-        <Header />
-        <Route exact path='/' component={HomePage}/>
-        <Route path='/shop' component={ShopPage} />
-        <Route path='/check-out' component={CheckoutPage} />
-        <Route 
-          exact 
-          path='/signin' 
-          render={() => 
-            this.props.currentUser ? (
-              <Redirect to='/' />
-            ) : (
-              <SignInAndSignUp />
-            ) 
-          } 
-        />
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Header />
+      <Route exact path='/' component={HomePage}/>
+      <Route path='/shop' component={ShopPage} />
+      <Route path='/check-out' component={CheckoutPage} />
+      <Route 
+        exact 
+        path='/signin' 
+        render={() => 
+          currentUser ? (
+            <Redirect to='/' />
+          ) : (
+            <SignInAndSignUp />
+          ) 
+        } 
+      />
+    </div>
+  );
 }
 
 
