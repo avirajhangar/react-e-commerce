@@ -9,16 +9,18 @@ import Header from './components/header/header.component';
 import CheckoutPage from './pages/checkout/checkout.component';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 
+import { fetchCollectionStart } from './redux/shop/shop.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 
 import { checkUserSession } from './redux/user/user.actions';
 
 import './pages/homepage/homepage.styles.scss';
 
-const App = ({ checkUserSession, currentUser }) => {
+const App = ({ checkUserSession, currentUser, fetchCollectionStart }) => {
   useEffect(() =>{
+    fetchCollectionStart();
     checkUserSession();
-  }, [checkUserSession])
+  }, [checkUserSession, fetchCollectionStart])
 
   return (
     <div>
@@ -47,7 +49,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  checkUserSession: () => dispatch(checkUserSession())
+  checkUserSession: () => dispatch(checkUserSession()),
+  fetchCollectionStart: () => dispatch(fetchCollectionStart())
 })
-
 export default connect(mapStateToProps, mapDispatchToProps)(App);
