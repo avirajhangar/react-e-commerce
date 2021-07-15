@@ -23,7 +23,6 @@ class ShopPage extends React.Component{
     const { fetchCollectionStart } = this.props;
     fetchCollectionStart();
   }
-
   render() {
     const { match, isCollectionFetching } = this.props;
     return(

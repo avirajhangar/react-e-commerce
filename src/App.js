@@ -3,6 +3,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import CheckoutPage from './pages/checkout/checkout.component';
@@ -10,13 +11,16 @@ import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.com
 
 import { selectCurrentUser } from './redux/user/user.selectors';
 
+import { checkUserSession } from './redux/user/user.actions';
+
 import './pages/homepage/homepage.styles.scss';
 
 class App extends React.Component {
   unsubcribeFromAuth = null;
 
   componentDidMount() {
-   console.log( this.props.currentUser);
+    const { checkUserSession } = this.props;
+    checkUserSession();
   }
 
   componentWillUnmount() {
@@ -27,6 +31,7 @@ class App extends React.Component {
     return (
       <div>
         <Header />
+        <Route exact path='/' component={HomePage}/>
         <Route path='/shop' component={ShopPage} />
         <Route path='/check-out' component={CheckoutPage} />
         <Route 
@@ -50,4 +55,8 @@ const mapStateToProps = (state) => ({
   currentUser: selectCurrentUser(state)
 })
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = dispatch => ({
+  checkUserSession: () => dispatch(checkUserSession())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
