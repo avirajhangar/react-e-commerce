@@ -30,5 +30,9 @@ export const OptionLink = styled(Link)`
   text-transform: uppercase;
   cursor: pointer;
   padding: 10px 15px;
-  color: red;
+  transition: all 0.5s linear;
+  &:hover{
+    font-size: 17px;
+    color: red;
+  }
 `
