@@ -1,11 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import { CustomButtomDiv } from './custom-button.styles';
+import { CustomButtomDiv } from "./custom-button.styles";
 
 const CustomBtn = ({ children, ...otherProps }) => (
-  <CustomButtomDiv {...otherProps}>
-    {children}
-  </CustomButtomDiv>
-)
+  <CustomButtomDiv {...otherProps}>{children}</CustomButtomDiv>
+);
 
 export default CustomBtn;
